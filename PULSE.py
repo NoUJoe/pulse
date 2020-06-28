@@ -20,7 +20,7 @@ class PULSE(torch.nn.Module):
         cache_dir = Path(cache_dir)
         cache_dir.mkdir(parents=True, exist_ok = True)
         if self.verbose: print("Loading Synthesis Network")
-        with open_url("https://drive.google.com/uc?id=1TCViX1YpQyRsklTVYEJwdbmK91vklCo8", cache_dir=cache_dir, verbose=verbose) as f:
+        with open_url("https://drive.google.com/uc?id=1rze7m8jqj9qT6SHLdKw98jlDJv5tgOpf", cache_dir=cache_dir, verbose=verbose) as f:
             self.synthesis.load_state_dict(torch.load(f))
 
         for param in self.synthesis.parameters():
@@ -177,3 +177,5 @@ class PULSE(torch.nn.Module):
             yield (gen_im.clone().cpu().detach().clamp(0, 1),loss_builder.D(best_im).cpu().detach().clamp(0, 1))
         else:
             print("Could not find a face that downscales correctly within epsilon")
+            print ("Showing best result:")
+            yield (gen_im.clone().cpu().detach().clamp(0, 1),loss_builder.D(best_im).cpu().detach().clamp(0, 1))
